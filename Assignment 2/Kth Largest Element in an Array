@@ -1,0 +1,30 @@
+class Solution {
+    public int findKthLargest(int[] nums, int k) {
+        int target = nums.length - k;
+        return ispossible(nums,0,nums.length-1,target);
+    }
+    Random random = new Random();
+    int ispossible(int[] nums, int i, int j, int target) {
+        if (i == j) return nums[i];
+        int index = i + random.nextInt(j - i + 1);
+        int[] range = partition(nums, i, j, nums[index]);
+        if (target < range[0]) return ispossible(nums, i, range[0] - 1, target);
+        if (target > range[1]) return ispossible(nums, range[1] + 1, j, target);
+        return nums[target];
+    }
+ 
+    int[] partition(int[] nums, int lo, int hi, int pivot) {
+        int lt = lo, gt = hi, k = lo;
+        while (k <= gt) {
+            if (nums[k] < pivot)      swap(nums, lt++, k++);
+            else if (nums[k] > pivot) swap(nums, k, gt--);
+            else                      k++;
+        }
+        return new int[]{lt, gt};
+    }
+ 
+    void swap(int[] a, int x, int y) {
+        int t = a[x]; a[x] = a[y]; a[y] = t;
+    }
+
+}
