@@ -1,0 +1,19 @@
+class Solution {
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        LinkedList<Integer> ts = new LinkedList<>();
+        for(int i=0;i<nums1.length;i++){
+            ts.add(nums1[i]);
+        }
+        for(int i=0;i<nums2.length;i++){
+            ts.add(nums2[i]);
+        }
+        int n = (nums1.length) + (nums2.length);
+        Collections.sort(ts);
+        int s = ts.size();
+        if(s%2 == 0){
+            int mid = s/2;
+            return (ts.get(mid) + ts.get(mid-1))/2.0;
+        }
+        return ts.get(s/2);
+    }
+}
